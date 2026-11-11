@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "repomedic-ai"
-version = "1.0.0"
+version = "2.0.0"
 description = "Auditable multi-agent Python bug repair demo with human approval"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -25,3 +25,6 @@ include = ["repomedic*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+repomedic = ["dashboard/*.html", "dashboard/*.css", "dashboard/*.js"]
