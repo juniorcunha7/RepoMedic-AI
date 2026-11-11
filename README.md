@@ -126,3 +126,23 @@ Real repository adapters, signed patch provenance, production isolation, evaluat
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+
+## v2.0 — Interactive Mission Control
+
+**The visual dashboard is a real frontend, not a mockup.** It calls the FastAPI backend. The four workflow steps execute Python functions when you click **Next stage**, using the same curated fixture and actual `unittest` execution as the CLI. The app displays the raw logs, the generated unified diff, the complete tests, and a review gate. Approving exports a `.patch` and an audit `.json`; it does **not** modify a repository or create a pull request.
+
+### Launch on Windows
+
+1. Open the extracted project folder containing `pyproject.toml`.
+2. Install dependencies (one time): `py -3 -m pip install -e ".[api,dev]"`
+3. Double-click **`RUN_DASHBOARD_WINDOWS.bat`** (or run `py -3 -m uvicorn repomedic.api:app --host 127.0.0.1 --port 8000`).
+4. Open **http://127.0.0.1:8000/** in the browser. The API Explorer remains at **http://127.0.0.1:8000/docs**.
+5. Start a run → click Next stage four times → inspect the log / diff / test output tabs → approve or reject the patch.
+
+**Recording:** Show the dashboard (not `/docs`) in OBS. Start a new run, move through the four steps, inspect the evidence, approve, and reveal the exported artifacts. A good demo explains the bug, the fix, the regression checks, and why human approval is mandatory.
+
+**Technical honesty:** These are four deterministic workflow roles, **not four autonomous LLMs**. The frontend does not invent agent decisions, scoring, or performance claims. The only supported issue is the reviewed shipping fixture. The dashboard is a **localhost-only, unauthenticated demo** with in-memory state; never expose it to a public network. No LLM call, arbitrary user-repository scanning, production sandbox isolation, automatic source edits, or pull requests are implemented.
+
+**Test:** `py -3 -m pytest -q` (including the browser/API integration tests). The dashboard UI is responsive and uses local HTML/CSS/JavaScript assets, so there is no frontend build process or external CDN.
