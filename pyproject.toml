@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repomedic-ai"
+version = "1.0.0"
+description = "Auditable multi-agent Python bug repair demo with human approval"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name="Junior Cunha"}]
+dependencies = []
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110,<1", "uvicorn>=0.29,<1"]
+graph = ["langgraph>=1.0,<2"]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1"]
+all = ["fastapi>=0.110,<1", "uvicorn>=0.29,<1", "langgraph>=1.0,<2", "openai>=1.50,<3", "pytest>=8,<10", "httpx>=0.27,<1"]
+
+[project.scripts]
+repomedic = "repomedic.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["repomedic*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
